@@ -27,5 +27,8 @@
     "username": "standard_user",
     "password": "secret_sauce1",
     "expectedError": "Epic sadface: Username and password do not match any user in this service"
+  },
+  "loginPage": {
+    "pageName": "Swag Labs"
   }
 }

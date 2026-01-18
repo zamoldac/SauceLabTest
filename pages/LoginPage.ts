@@ -3,7 +3,6 @@ import { expect, type Locator, type Page } from '@playwright/test';
 export class LoginPage {
   readonly page: Page;
   readonly loginBtn: Locator;
-  readonly pageTitle: Locator;
   readonly userNameField: Locator;
   readonly passwordField: Locator;
   readonly loginError: Locator;
@@ -11,10 +10,8 @@ export class LoginPage {
   readonly loginErrorClose: Locator;
 
 
-
   constructor(page: Page) {
     this.page = page;
-    this.pageTitle = page.getByText("Swag Labsa");
     this.userNameField = page.locator("#user-name");
     this.passwordField = page.locator("#password");
     this.loginBtn = page.locator("#login-button");
@@ -23,12 +20,8 @@ export class LoginPage {
     this.loginErrorClose = page.locator("[data-test='error-button']");
   }
 
-  async goToLoginPage() {
+   async goToLoginPage() {
     await this.page.goto('https://www.saucedemo.com');
-  }
-
-  async verifyTitle() {
-    await this.pageTitle.isVisible();
   }
 
     async fillUsername(username: string) {
@@ -51,7 +44,7 @@ export class LoginPage {
     await expect(this.productPage).not.toBeVisible();  
     }
 
-    async assertLoginError(error:string){
+    async assertLoginError(error: string){
     await expect (this.loginError).toHaveText(error);
     }
     
