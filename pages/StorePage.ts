@@ -22,6 +22,13 @@ export class StorePage {
   readonly hamMenuAllItems: Locator;
   readonly hamMenuAbout: Locator;
   readonly hamMenuReset: Locator;
+  readonly backPackImageLink: Locator;
+  readonly backPackTitleLink: Locator;
+  readonly itemDetailsName: Locator;
+  readonly backToProductBtn: Locator;
+  readonly filterOption: Locator;
+  readonly addToCartFromItemPage: Locator;
+  readonly removeFromCartFromItemPage: Locator;
 
 
   constructor(page: Page) {
@@ -46,6 +53,13 @@ export class StorePage {
     this.hamMenuAllItems = page.locator("#inventory_sidebar_link");
     this.hamMenuAbout = page.locator("#about_sidebar_link")
     this.hamMenuReset = page.locator("#reset_sidebar_link")
+    this.backPackImageLink = page.locator("#item_4_img_link")
+    this.backPackTitleLink = page.locator("#item_4_title_link")
+    this.itemDetailsName = page.locator("[data-test='inventory-item-name']")
+    this.backToProductBtn = page.locator("#back-to-products")
+    this.filterOption = page.locator("[data-test='active-option']")
+    this.addToCartFromItemPage = page.locator("#add-to-cart")
+    this.removeFromCartFromItemPage = page.locator("#remove")
 
 
   }
@@ -56,6 +70,10 @@ export class StorePage {
 
     async assertCartItemCounter(counter: string){
     await expect (this.cartItemCounter).toHaveText(counter);
+    }
+
+    async assertItemDetailsName(itemName: string){
+    await expect (this.itemDetailsName).toHaveText(itemName);
     }
  
    async assertCartItemCounterNotDisplayed(){
@@ -80,6 +98,10 @@ export class StorePage {
 
    async assertHamMenuLogOutIsDisplayed(){
     await expect(this.logoutBtn).toBeVisible();
+   }
+
+    async assertFilterOptionIsDisplayed(){
+    await expect(this.filterOption).toBeVisible();
    }
 
   }
