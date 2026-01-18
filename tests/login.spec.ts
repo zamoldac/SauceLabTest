@@ -17,8 +17,8 @@ test('this test verifies that valid credentials lead to successful login', async
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(loginPage.verifyTitle).toBeTruthy();
-  await loginPage.fillUsername("standard_user");
-  await loginPage.fillPassword("secret_sauce");
+  await loginPage.fillUsername(testData.validUser.username);
+  await loginPage.fillPassword(testData.validUser.password);
   await loginPage.clickLogin();
   await loginPage.loginSuccessful();
 
@@ -28,18 +28,18 @@ test('this test verifies login page behavior for empty username field login atte
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(loginPage.verifyTitle).toBeTruthy();
-  await loginPage.fillPassword("secret_sauce");
+  await loginPage.fillPassword(testData.validUser.password);
   await loginPage.clickLogin();
-  await loginPage.assertLoginError("Epic sadface: Username is required");
+  await loginPage.assertLoginError(testData.noUsername.expectedError);
 });
 
 test('this test verifies login page behavior for empty password field login attempt', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(loginPage.verifyTitle).toBeTruthy();
-  await loginPage.fillUsername("standard_user");
+  await loginPage.fillUsername(testData.validUser.username);
   await loginPage.clickLogin();
-  await loginPage.assertLoginError("Epic sadface: Password is required");
+  await loginPage.assertLoginError(testData.noPassword.expectedError);
 
 });
 
@@ -47,10 +47,10 @@ test('this test verifies login page behavior for locked out user credentials log
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(loginPage.verifyTitle).toBeTruthy();
-  await loginPage.fillUsername("locked_out_user");
-  await loginPage.fillPassword("secret_sauce");
+  await loginPage.fillUsername(testData.lockedOutUser.username);
+  await loginPage.fillPassword(testData.lockedOutUser.password);
   await loginPage.clickLogin();
-  await loginPage.assertLoginError("Epic sadface: Sorry, this user has been locked out.");
+  await loginPage.assertLoginError(testData.lockedOutUser.expectedError);
 
 });
 
@@ -58,9 +58,21 @@ test('this test verifies login page behavior for missmatch password login attemp
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(loginPage.verifyTitle).toBeTruthy();
-  await loginPage.fillUsername("standard_user");
-  await loginPage.fillPassword("xyz");
+  await loginPage.fillUsername(testData.missmatchPassword.username);
+  await loginPage.fillPassword(testData.missmatchPassword.password);
   await loginPage.clickLogin();
-  await loginPage.assertLoginError("Epic sadface: Username and password do not match any user in this service");
+  await loginPage.assertLoginError(testData.missmatchPassword.expectedError);
+});
 
+test('this test verifies login page error message dismiss', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.goToLoginPage();
+  await expect(loginPage.verifyTitle).toBeTruthy();
+  await loginPage.fillUsername(testData.missmatchPassword.username);
+  await loginPage.fillPassword(testData.missmatchPassword.password);
+  await loginPage.clickLogin();
+  await loginPage.assertLoginError(testData.missmatchPassword.expectedError);
+  await loginPage.assertLoginErrorPresent();
+  await loginPage.loginErrorClose.click();
+  await loginPage.assertLoginErrorNotPresent();
 });

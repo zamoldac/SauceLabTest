@@ -15,11 +15,11 @@
   },
    "noUsername": {
     "username": "",
-    "password": "secret_sauce",
+    "password": "",
     "expectedError": "Epic sadface: Username is required"
   },
    "noPassword": {
-    "username": "standard_user",
+    "username": "",
     "password": "",
     "expectedError": "Epic sadface: Password is required"
   },

@@ -8,6 +8,7 @@ export class LoginPage {
   readonly passwordField: Locator;
   readonly loginError: Locator;
   readonly productPage: Locator;
+  readonly loginErrorClose: Locator;
 
 
 
@@ -19,6 +20,7 @@ export class LoginPage {
     this.loginBtn = page.locator("#login-button");
     this.productPage = page.getByText("Products");
     this.loginError = page.locator("[data-test='error']");
+    this.loginErrorClose = page.locator("[data-test='error-button']");
   }
 
   async goToLoginPage() {
@@ -52,4 +54,12 @@ export class LoginPage {
     async assertLoginError(error:string){
     await expect (this.loginError).toHaveText(error);
     }
-}
+    
+    async assertLoginErrorPresent(){
+    await expect(this.loginErrorClose).toBeVisible();
+    }
+
+    async assertLoginErrorNotPresent(){
+    await expect(this.loginErrorClose).not.toBeVisible();  
+    }
+  }
