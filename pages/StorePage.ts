@@ -118,6 +118,10 @@ export class StorePage {
     await expect(this.cartItemOnsieName).not.toBeVisible();
   }
 
+       async assertCartItemOnsieIsVisible(){
+    await expect(this.cartItemOnsieName).toBeVisible();
+  }
+
       async assertCartItemBackPackisNotVisible(){
     await expect(this.cartItemBackPackName).not.toBeVisible();
       }

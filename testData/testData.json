@@ -33,7 +33,7 @@
   },
 
   "availableItems": {
-    "backpack": "Sauce Labs Backpack"
-    "onsie": "Sauce Labs Backpack"
+    "backpack": "Sauce Labs Backpack",
+    "onsie": "Sauce Labs Onesie"
   }
 }

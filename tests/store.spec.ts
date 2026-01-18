@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { StorePage } from '../pages/StorePage';
 import * as testData from '../testData/testData.json';
+import { assert } from 'node:console';
 
 test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -100,6 +101,16 @@ test('verify that the user can add or remove items to cart from items page', asy
   await storePage.removeFromCartFromItemPage.click();
   await storePage.assertCartItemCounterNotDisplayed();
 });
+
+test('verify that the user can navigate between cart and store pages', async ({ page }) => {
+  const storePage = new StorePage(page);
+  await storePage.addToCartBtnOnsie.click();
+  await storePage.cartBtn.click();
+  await storePage.assertCartItemOnsieIsVisible();
+  await storePage.cartContinueShopBtn.click();
+  await storePage.assertFilterOptionIsDisplayed();
+});
+
 
 test('verify accuracy of items added to cart from both item details and store main page as well as empty cart view', async ({ page }) => {
   const storePage = new StorePage(page);
