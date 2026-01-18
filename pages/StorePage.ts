@@ -29,6 +29,9 @@ export class StorePage {
   readonly filterOption: Locator;
   readonly addToCartFromItemPage: Locator;
   readonly removeFromCartFromItemPage: Locator;
+  readonly cartContinueShopBtn: Locator;
+  readonly cartItemOnsieName: Locator;
+  readonly cartItemBackPackName: Locator;
 
 
   constructor(page: Page) {
@@ -51,15 +54,18 @@ export class StorePage {
     this.cartBtn = page.locator("#shopping_cart_container");
     this.cartItemCounter = page.locator("[data-test='shopping-cart-badge']");
     this.hamMenuAllItems = page.locator("#inventory_sidebar_link");
-    this.hamMenuAbout = page.locator("#about_sidebar_link")
-    this.hamMenuReset = page.locator("#reset_sidebar_link")
-    this.backPackImageLink = page.locator("#item_4_img_link")
-    this.backPackTitleLink = page.locator("#item_4_title_link")
-    this.itemDetailsName = page.locator("[data-test='inventory-item-name']")
-    this.backToProductBtn = page.locator("#back-to-products")
-    this.filterOption = page.locator("[data-test='active-option']")
-    this.addToCartFromItemPage = page.locator("#add-to-cart")
-    this.removeFromCartFromItemPage = page.locator("#remove")
+    this.hamMenuAbout = page.locator("#about_sidebar_link");
+    this.hamMenuReset = page.locator("#reset_sidebar_link");
+    this.backPackImageLink = page.locator("#item_4_img_link");
+    this.backPackTitleLink = page.locator("#item_4_title_link");
+    this.itemDetailsName = page.locator("[data-test='inventory-item-name']");
+    this.backToProductBtn = page.locator("#back-to-products");
+    this.filterOption = page.locator("[data-test='active-option']");
+    this.addToCartFromItemPage = page.locator("#add-to-cart");
+    this.removeFromCartFromItemPage = page.locator("#remove");
+    this.cartContinueShopBtn = page.locator("#continue-shopping");
+    this.cartItemOnsieName = page.locator("#item_2_title_link")
+    this.cartItemBackPackName = page.locator("#item_4_title_link")
 
 
   }
@@ -103,5 +109,17 @@ export class StorePage {
     async assertFilterOptionIsDisplayed(){
     await expect(this.filterOption).toBeVisible();
    }
+
+     async assertCartContinueShoppingBtnIsDisplayed(){
+    await expect(this.cartContinueShopBtn).toBeVisible();
+   }
+
+      async assertCartItemOnsieIsNotVisible(){
+    await expect(this.cartItemOnsieName).not.toBeVisible();
+  }
+
+      async assertCartItemBackPackisNotVisible(){
+    await expect(this.cartItemBackPackName).not.toBeVisible();
+      }
 
   }

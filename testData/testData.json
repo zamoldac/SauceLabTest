@@ -32,7 +32,8 @@
     "pageName": "Swag Labs"
   },
 
-  "selectedItem": {
-    "itemName": "Sauce Labs Backpack"
+  "availableItems": {
+    "backpack": "Sauce Labs Backpack"
+    "onsie": "Sauce Labs Backpack"
   }
 }

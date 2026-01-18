@@ -82,11 +82,11 @@ test('verify that the items added in the cart are persisted and accurate on re-l
 test('verify that the user can acess item page by clicking on either title or image and navigate back to store page', async ({ page }) => {
   const storePage = new StorePage(page);
   await storePage.backPackImageLink.click();
-  await storePage.assertItemDetailsName(testData.selectedItem.itemName);
+  await storePage.assertItemDetailsName(testData.availableItems.backpack);
   await storePage.backToProductBtn.click();
   await storePage.assertFilterOptionIsDisplayed();
   await storePage.backPackTitleLink.click();
-  await storePage.assertItemDetailsName(testData.selectedItem.itemName);
+  await storePage.assertItemDetailsName(testData.availableItems.backpack);
   await storePage.backToProductBtn.click();
   await storePage.assertFilterOptionIsDisplayed();
 });
@@ -94,9 +94,26 @@ test('verify that the user can acess item page by clicking on either title or im
 test('verify that the user can add or remove items to cart from items page', async ({ page }) => {
   const storePage = new StorePage(page);
   await storePage.backPackImageLink.click();
-  await storePage.assertItemDetailsName(testData.selectedItem.itemName);
+  await storePage.assertItemDetailsName(testData.availableItems.backpack);
   await storePage.addToCartFromItemPage.click();
   await storePage.assertCartItemCounter("1");
   await storePage.removeFromCartFromItemPage.click();
   await storePage.assertCartItemCounterNotDisplayed();
+});
+
+test('verify accuracy of items added to cart from both item details and store main page as well as empty cart view', async ({ page }) => {
+  const storePage = new StorePage(page);
+  await storePage.addToCartBtnOnsie.click();
+  await storePage.backPackImageLink.click();
+  await storePage.assertItemDetailsName(testData.availableItems.backpack);
+  await storePage.addToCartFromItemPage.click();
+  await storePage.assertCartItemCounter("2");
+  await storePage.cartBtn.click();
+  await storePage.assertCartContinueShoppingBtnIsDisplayed();
+  await storePage.remToCartBtnOnsie.click();
+  await storePage.assertCartItemCounter("1");
+  await storePage.remToCartBtnBackPack.click();
+  await storePage.assertCartItemCounterNotDisplayed();
+  await storePage.assertCartItemBackPackisNotVisible();
+  await storePage.assertCartItemOnsieIsNotVisible();
 });
