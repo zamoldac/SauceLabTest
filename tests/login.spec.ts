@@ -26,7 +26,6 @@ test('this test verifies that valid credentials lead to successful login', async
   await loginPage.fillPassword(testData.validUser.password);
   await loginPage.clickLogin();
   await loginPage.loginSuccessful();
-
 });
 
 test('this test verifies login page behavior for empty username field login attempt', async ({ page }) => {
@@ -45,7 +44,6 @@ test('this test verifies login page behavior for empty password field login atte
   await loginPage.fillUsername(testData.validUser.username);
   await loginPage.clickLogin();
   await loginPage.assertLoginError(testData.noPassword.expectedError);
-
 });
 
 test('this test verifies login page behavior for locked out user credentials login attempt', async ({ page }) => {
@@ -56,7 +54,6 @@ test('this test verifies login page behavior for locked out user credentials log
   await loginPage.fillPassword(testData.lockedOutUser.password);
   await loginPage.clickLogin();
   await loginPage.assertLoginError(testData.lockedOutUser.expectedError);
-
 });
 
 test('this test verifies login page behavior for missmatch password login attempt', async ({ page }) => {

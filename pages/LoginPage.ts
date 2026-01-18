@@ -18,19 +18,19 @@ export class LoginPage {
     this.productPage = page.getByText("Products");
     this.loginError = page.locator("[data-test='error']");
     this.loginErrorClose = page.locator("[data-test='error-button']");
-  }
+   }
 
    async goToLoginPage() {
     await this.page.goto('https://www.saucedemo.com');
-  }
+   }
 
     async fillUsername(username: string) {
     await this.userNameField.fill(username);
-  }
+   }
 
     async fillPassword(password: string) {
     await this.passwordField.fill(password);
-  }
+   }
 
     async clickLogin() {
     await this.loginBtn.click();
@@ -54,5 +54,9 @@ export class LoginPage {
 
     async assertLoginErrorNotPresent(){
     await expect(this.loginErrorClose).not.toBeVisible();  
+    }
+
+    async assertLoginButtonPresent(){
+      await expect(this.loginBtn).toBeVisible
     }
   }
