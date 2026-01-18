@@ -13,6 +13,18 @@ test.beforeEach(async ({ page }) => {
   await loginPage.loginSuccessful();
   });
 
+test('verify that the user can properly open and close the side menu in the store page', async ({ page }) => {
+  const storePage = new StorePage(page);
+  await storePage.hamburgerMenuBtn.click();
+  await storePage.assertHamMenuAboutIsDisplayed();
+  await storePage.assertHamMenuAllitemsIsDisplayed();
+  await storePage.assertHamMenuResetIsDisplayed();
+  await storePage.assertHamMenuLogOutIsDisplayed();
+  await storePage.closeHamburgerMenuBtn.click();
+  await storePage.assertHamMenuAboutIsNotVisible();
+});
+
+
 test('verify that the user can logout from the store page', async ({ page }) => {
   const storePage = new StorePage(page);
   await storePage.hamburgerMenuBtn.click();
@@ -20,7 +32,7 @@ test('verify that the user can logout from the store page', async ({ page }) => 
   await storePage.assertHamburgerMenuBtnNotPresent();
 });
 
-test('verify that the user can add and remove items to the shopping cart', async ({ page }) => {
+test('verify that the user can add and remove items to the shopping cart fron the store page', async ({ page }) => {
   const storePage = new StorePage(page);
   await storePage.addToCartBtnOnsie.click();
   await storePage.assertCartItemCounter("1");
@@ -42,6 +54,25 @@ test('verify that the user can add and remove items to the shopping cart', async
   await storePage.assertCartItemCounter("3");
   await storePage.remToCartBtnBackPack.click();
   await storePage.assertCartItemCounter("2");
+  await storePage.remToCartBtnRedShirt.click();
+  await storePage.assertCartItemCounter("1");
+  await storePage.remToCartBtnOnsie.click();
+  await storePage.assertCartItemCounterNotDisplayed();
+});
+
+test('verify that the items added in the cart are persisted and accurate on re-login in store page context', async ({ page }) => {
+  const storePage = new StorePage(page);
+  const loginPage = new LoginPage(page);
+  await storePage.addToCartBtnOnsie.click();
+  await storePage.addToCartBtnRedShirt.click();
+  await storePage.assertCartItemCounter("2");
+  await storePage.hamburgerMenuBtn.click();
+  await storePage.logoutBtn.click();
+  await expect(page).toHaveTitle(testData.loginPage.pageName);
+  await loginPage.fillUsername(testData.validUser.username);
+  await loginPage.fillPassword(testData.validUser.password);
+  await loginPage.clickLogin();
+  await loginPage.loginSuccessful();
   await storePage.remToCartBtnRedShirt.click();
   await storePage.assertCartItemCounter("1");
   await storePage.remToCartBtnOnsie.click();

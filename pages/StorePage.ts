@@ -3,6 +3,7 @@ import { expect, type Locator, type Page } from '@playwright/test';
 export class StorePage {
   readonly page: Page;
   readonly hamburgerMenuBtn: Locator;
+  readonly closeHamburgerMenuBtn: Locator;
   readonly logoutBtn: Locator;
   readonly addToCartBtnBackPack: Locator;
   readonly addToCartBtnBikeLight: Locator;
@@ -10,21 +11,23 @@ export class StorePage {
   readonly addToCartBtnFJacket: Locator;
   readonly addToCartBtnOnsie: Locator;
   readonly addToCartBtnRedShirt: Locator;
-
   readonly remToCartBtnBackPack: Locator;
   readonly remToCartBtnBikeLight: Locator;
   readonly remToCartBtnTShirt: Locator;
   readonly remToCartBtnFJacket: Locator;
   readonly remToCartBtnOnsie: Locator;
   readonly remToCartBtnRedShirt: Locator;
-
   readonly cartBtn: Locator;
   readonly cartItemCounter: Locator;
+  readonly hamMenuAllItems: Locator;
+  readonly hamMenuAbout: Locator;
+  readonly hamMenuReset: Locator;
 
 
   constructor(page: Page) {
     this.page = page;
     this.hamburgerMenuBtn = page.locator("#react-burger-menu-btn");
+    this.closeHamburgerMenuBtn = page.locator("#react-burger-cross-btn")
     this.logoutBtn = page.locator("#logout_sidebar_link");
     this.addToCartBtnBackPack = page.locator("#add-to-cart-sauce-labs-backpack");
     this.addToCartBtnBikeLight = page.locator("#add-to-cart-sauce-labs-bike-light");
@@ -40,6 +43,9 @@ export class StorePage {
     this.remToCartBtnRedShirt = page.locator("[id='remove-test.allthethings()-t-shirt-(red)']");
     this.cartBtn = page.locator("#shopping_cart_container");
     this.cartItemCounter = page.locator("[data-test='shopping-cart-badge']");
+    this.hamMenuAllItems = page.locator("#inventory_sidebar_link");
+    this.hamMenuAbout = page.locator("#about_sidebar_link")
+    this.hamMenuReset = page.locator("#reset_sidebar_link")
 
 
   }
@@ -55,5 +61,25 @@ export class StorePage {
    async assertCartItemCounterNotDisplayed(){
     await expect(this.cartItemCounter).not.toBeVisible();
   }
+
+   async assertHamMenuAllitemsIsDisplayed(){
+    await expect(this.hamMenuAllItems).toBeVisible();
+   }
+
+   async assertHamMenuAboutIsDisplayed(){
+    await expect(this.hamMenuAbout).toBeVisible();
+   }
+
+   async assertHamMenuResetIsDisplayed(){
+    await expect(this.hamMenuReset).toBeVisible();
+   }
+
+   async assertHamMenuAboutIsNotVisible(){
+    await expect(this.hamMenuAbout).not.toBeVisible();
+   }
+
+   async assertHamMenuLogOutIsDisplayed(){
+    await expect(this.logoutBtn).toBeVisible();
+   }
 
   }
