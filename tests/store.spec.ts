@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { StorePage } from '../pages/StorePage';
 import * as testData from '../testData/testData.json';
-import { assert } from 'node:console';
 
 test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
