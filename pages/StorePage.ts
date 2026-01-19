@@ -32,6 +32,16 @@ export class StorePage {
   readonly cartContinueShopBtn: Locator;
   readonly cartItemOnsieName: Locator;
   readonly cartItemBackPackName: Locator;
+  readonly checkoutBtn: Locator;
+  readonly checkoutContinueBtn: Locator;
+  readonly checkoutYorInfoPage: Locator;
+  readonly checkoutErrorYourInfoPage: Locator;
+  readonly checkoutFirstNameField: Locator;
+  readonly checkoutLastNameField: Locator;
+  readonly checkoutZipPostalField: Locator;
+  readonly checkoutFinishBtn: Locator;
+  readonly checkoutFinishMessage: Locator;
+  readonly checkoutItemPrice: Locator;
 
 
   constructor(page: Page) {
@@ -64,66 +74,92 @@ export class StorePage {
     this.addToCartFromItemPage = page.locator("#add-to-cart");
     this.removeFromCartFromItemPage = page.locator("#remove");
     this.cartContinueShopBtn = page.locator("#continue-shopping");
-    this.cartItemOnsieName = page.locator("#item_2_title_link")
-    this.cartItemBackPackName = page.locator("#item_4_title_link")
+    this.cartItemOnsieName = page.locator("#item_2_title_link");
+    this.cartItemBackPackName = page.locator("#item_4_title_link");
+    this.checkoutBtn = page.locator("#checkout");
+    this.checkoutContinueBtn = page.locator("#continue");
+    this.checkoutYorInfoPage = page.locator("[data-test='title']");
+    this.checkoutErrorYourInfoPage = page.locator("[data-test='error']");
+    this.checkoutFirstNameField = page.locator("#first-name");
+    this.checkoutLastNameField = page.locator("#last-name");
+    this.checkoutZipPostalField = page.locator("#postal-code");
+    this.checkoutFinishBtn = page.locator("#finish")
+    this.checkoutFinishMessage = page.locator("[data-test='complete-header']");
+    this.checkoutItemPrice = page.locator("[data-test='inventory-item-price']")
 
 
   }
 
     async assertHamburgerMenuBtnNotPresent(){
     await expect(this.hamburgerMenuBtn).not.toBeVisible();  
-  }
+    }
+
+    async assertCheckoutYourInfoError(error: string){
+    await expect (this.checkoutErrorYourInfoPage).toHaveText(error);
+    }
+
+    async assertItemCheckoutPrice(itemprice: string){
+    await expect (this.checkoutItemPrice).toHaveText(itemprice);
+    }
+
+    async assertCheckoutFinishMessage(message: string){
+    await expect (this.checkoutFinishMessage).toHaveText(message);
+    }
 
     async assertCartItemCounter(counter: string){
     await expect (this.cartItemCounter).toHaveText(counter);
+    }
+
+    async assertCheckoutYourInfoPageLoaded(yourInfoPageName: string){
+    await expect (this.checkoutYorInfoPage).toHaveText(yourInfoPageName);
     }
 
     async assertItemDetailsName(itemName: string){
     await expect (this.itemDetailsName).toHaveText(itemName);
     }
  
-   async assertCartItemCounterNotDisplayed(){
+    async assertCartItemCounterNotDisplayed(){
     await expect(this.cartItemCounter).not.toBeVisible();
-  }
+    }
 
-   async assertHamMenuAllitemsIsDisplayed(){
+    async assertHamMenuAllitemsIsDisplayed(){
     await expect(this.hamMenuAllItems).toBeVisible();
-   }
+    }
 
-   async assertHamMenuAboutIsDisplayed(){
+    async assertHamMenuAboutIsDisplayed(){
     await expect(this.hamMenuAbout).toBeVisible();
-   }
+    }
 
-   async assertHamMenuResetIsDisplayed(){
+    async assertHamMenuResetIsDisplayed(){
     await expect(this.hamMenuReset).toBeVisible();
-   }
+    }
 
-   async assertHamMenuAboutIsNotVisible(){
+    async assertHamMenuAboutIsNotVisible(){
     await expect(this.hamMenuAbout).not.toBeVisible();
-   }
+    }
 
-   async assertHamMenuLogOutIsDisplayed(){
+    async assertHamMenuLogOutIsDisplayed(){
     await expect(this.logoutBtn).toBeVisible();
-   }
+    }
 
     async assertFilterOptionIsDisplayed(){
     await expect(this.filterOption).toBeVisible();
-   }
+    }
 
      async assertCartContinueShoppingBtnIsDisplayed(){
-    await expect(this.cartContinueShopBtn).toBeVisible();
-   }
+     await expect(this.cartContinueShopBtn).toBeVisible();
+    }
 
-      async assertCartItemOnsieIsNotVisible(){
-    await expect(this.cartItemOnsieName).not.toBeVisible();
-  }
+     async assertCartItemOnsieIsNotVisible(){
+     await expect(this.cartItemOnsieName).not.toBeVisible();
+    }
 
-       async assertCartItemOnsieIsVisible(){
-    await expect(this.cartItemOnsieName).toBeVisible();
-  }
+     async assertCartItemOnsieIsVisible(){
+     await expect(this.cartItemOnsieName).toBeVisible();
+    }
 
-      async assertCartItemBackPackisNotVisible(){
-    await expect(this.cartItemBackPackName).not.toBeVisible();
-      }
+     async assertCartItemBackPackisNotVisible(){
+     await expect(this.cartItemBackPackName).not.toBeVisible();
+    }
 
   }

@@ -31,9 +31,17 @@
   "loginPage": {
     "pageName": "Swag Labs"
   },
-
   "availableItems": {
     "backpack": "Sauce Labs Backpack",
     "onsie": "Sauce Labs Onesie"
+  },
+  "checkoutPageInfo": {
+    "yourInfoPageName": "Checkout: Your Information",
+    "noFirstNameError": "Error: First Name is required",
+    "firstName": "Jean",
+    "lastName": "VanDamn",
+    "zipPostalCode": "1337",
+    "onsiePrice": "$7.99",
+    "orderCompleteMessage": "Thank you for your order!"
   }
 }

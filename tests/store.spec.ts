@@ -128,3 +128,32 @@ test('verify accuracy of items added to cart from both item details and store ma
   await storePage.assertCartItemBackPackisNotVisible();
   await storePage.assertCartItemOnsieIsNotVisible();
 });
+
+test('verify that the user is not able to continue to checkout overview without information input', async ({ page }) => {
+  const storePage = new StorePage(page);
+  await storePage.addToCartBtnOnsie.click();
+  await storePage.cartBtn.click();
+  await storePage.assertCartItemOnsieIsVisible();
+  await storePage.checkoutBtn.click();
+  await storePage.assertCheckoutYourInfoPageLoaded(testData.checkoutPageInfo.yourInfoPageName);
+  await storePage.checkoutContinueBtn.click();
+  await storePage.assertCheckoutYourInfoError(testData.checkoutPageInfo.noFirstNameError);
+});
+
+test('verify that the user is able to complete a checkout with a successful purchase and price verification', async ({ page }) => {
+  const storePage = new StorePage(page);
+  await storePage.addToCartBtnOnsie.click();
+  await storePage.cartBtn.click();
+  await storePage.assertCartItemOnsieIsVisible();
+  await storePage.checkoutBtn.click();
+  await storePage.assertCheckoutYourInfoPageLoaded(testData.checkoutPageInfo.yourInfoPageName);
+  await storePage.checkoutFirstNameField.fill(testData.checkoutPageInfo.firstName);
+  await storePage.checkoutLastNameField.fill(testData.checkoutPageInfo.lastName);
+  await storePage.checkoutZipPostalField.fill(testData.checkoutPageInfo.zipPostalCode);
+  await storePage.checkoutContinueBtn.click();
+  await storePage.assertItemDetailsName(testData.availableItems.onsie);
+  await storePage.assertItemCheckoutPrice(testData.checkoutPageInfo.onsiePrice);
+  await storePage.checkoutFinishBtn.click();
+  await storePage.assertCheckoutFinishMessage(testData.checkoutPageInfo.orderCompleteMessage);
+});
+
