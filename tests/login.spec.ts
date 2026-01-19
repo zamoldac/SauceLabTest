@@ -2,13 +2,13 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import * as testData from '../testData/testData.json';
 
-test('this test verifies that the login page is loaded', async ({ page }) => {
+test('verify that the login page is loaded', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(page).toHaveTitle(testData.loginPage.pageName);
 });
 
-test('this test verifies that invalid credentials lead to unsuccessful login', async ({ page }) => {
+test('verify that invalid credentials lead to unsuccessful login', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(page).toHaveTitle(testData.loginPage.pageName);
@@ -18,7 +18,7 @@ test('this test verifies that invalid credentials lead to unsuccessful login', a
   await loginPage.assertLoginError(testData.invalidUser.expectedError);
 });
 
-test('this test verifies that valid credentials lead to successful login', async ({ page }) => {
+test('verify that valid credentials lead to successful login', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(page).toHaveTitle(testData.loginPage.pageName);
@@ -28,7 +28,7 @@ test('this test verifies that valid credentials lead to successful login', async
   await loginPage.loginSuccessful();
 });
 
-test('this test verifies login page behavior for empty username field login attempt', async ({ page }) => {
+test('verify login page behavior for empty username field login attempt', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(page).toHaveTitle(testData.loginPage.pageName);
@@ -37,7 +37,7 @@ test('this test verifies login page behavior for empty username field login atte
   await loginPage.assertLoginError(testData.noUsername.expectedError);
 });
 
-test('this test verifies login page behavior for empty password field login attempt', async ({ page }) => {
+test('verify login page behavior for empty password field login attempt', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(page).toHaveTitle(testData.loginPage.pageName);
@@ -46,7 +46,7 @@ test('this test verifies login page behavior for empty password field login atte
   await loginPage.assertLoginError(testData.noPassword.expectedError);
 });
 
-test('this test verifies login page behavior for locked out user credentials login attempt', async ({ page }) => {
+test('verify login page behavior for locked out user credentials login attempt', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(page).toHaveTitle(testData.loginPage.pageName);
@@ -56,7 +56,7 @@ test('this test verifies login page behavior for locked out user credentials log
   await loginPage.assertLoginError(testData.lockedOutUser.expectedError);
 });
 
-test('this test verifies login page behavior for missmatch password login attempt', async ({ page }) => {
+test('verify login page behavior for missmatch password login attempt', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(page).toHaveTitle(testData.loginPage.pageName);
@@ -66,7 +66,7 @@ test('this test verifies login page behavior for missmatch password login attemp
   await loginPage.assertLoginError(testData.missmatchPassword.expectedError);
 });
 
-test('this test verifies login page error message dismiss', async ({ page }) => {
+test('verify login page error message dismiss', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await expect(page).toHaveTitle(testData.loginPage.pageName);
