@@ -36,9 +36,9 @@ test('verify that the user can add and remove items to the shopping cart fron th
   await storePage.assertCartItemCounter("1");
   await storePage.addToCart(testData.availableItems.backpack);
   await storePage.assertCartItemCounter("2");
-  await storePage.remToCartBtnBackPack.click();
+  await storePage.removeFromCart(testData.availableItems.backpack)
   await storePage.assertCartItemCounter("1");
-  await storePage.remToCartBtnOnsie.click();
+  await storePage.removeFromCart(testData.availableItems.onsie)
   await storePage.assertCartItemCounterNotDisplayed();
 });
 
@@ -51,9 +51,9 @@ test('verify that the items added in the cart are persisted and accurate on re-l
   await storePage.clickOpenHamburgerMenu();
   await storePage.logoutFromStore();
   await loginPage.loginToStore();
-  await storePage.remToCartBtnBackPack.click();
+  await storePage.removeFromCart(testData.availableItems.backpack)
   await storePage.assertCartItemCounter("1");
-  await storePage.remToCartBtnOnsie.click();
+  await storePage.removeFromCart(testData.availableItems.onsie)
   await storePage.assertCartItemCounterNotDisplayed();
 });
 
@@ -81,7 +81,9 @@ test('verify that the user can add or remove items to cart from items page', asy
 
 test('verify that the user can navigate between cart and store pages', async ({ page }) => {
   const storePage = new StorePage(page);
+  await storePage.assertCartItemCounterNotDisplayed();
   await storePage.addToCart(testData.availableItems.onsie);
+  await storePage.assertCartItemCounterIsDisplayed();
   await storePage.clickOnCartButton();
   await storePage.assertCartItemOnsieIsVisible();
   await storePage.clickOnContinueShopFromCartPage();
@@ -91,16 +93,18 @@ test('verify that the user can navigate between cart and store pages', async ({ 
 
 test('verify accuracy of items added to cart from both item details and store main page as well as empty cart view', async ({ page }) => {
   const storePage = new StorePage(page);
+  await storePage.assertCartItemCounterNotDisplayed();
   await storePage.addToCart(testData.availableItems.onsie);
+  await storePage.assertCartItemCounterIsDisplayed();
   await storePage.clickOnBackPackImage();
   await storePage.assertItemDetailsName(testData.availableItems.backpack);
   await storePage.addToCartFromItemDetailsPage();
   await storePage.assertCartItemCounter("2");
   await storePage.clickOnCartButton();
   await storePage.assertCartContinueShoppingBtnIsDisplayed();
-  await storePage.remToCartBtnOnsie.click();
+  await storePage.removeFromCart(testData.availableItems.onsie)
   await storePage.assertCartItemCounter("1");
-  await storePage.remToCartBtnBackPack.click();
+  await storePage.removeFromCart(testData.availableItems.backpack)
   await storePage.assertCartItemCounterNotDisplayed();
   await storePage.assertCartItemBackPackisNotVisible();
   await storePage.assertCartItemOnsieIsNotVisible();
@@ -108,7 +112,9 @@ test('verify accuracy of items added to cart from both item details and store ma
 
 test('verify that the user is not able to continue to checkout overview without information input', async ({ page }) => {
   const storePage = new StorePage(page);
+  await storePage.assertCartItemCounterNotDisplayed();
   await storePage.addToCart(testData.availableItems.onsie);
+  await storePage.assertCartItemCounterIsDisplayed();
   await storePage.clickOnCartButton();
   await storePage.assertCartItemOnsieIsVisible();
   await storePage.clickOnCheckOutButton();
@@ -119,7 +125,9 @@ test('verify that the user is not able to continue to checkout overview without 
 
 test('verify that the user is able to complete a checkout with a successful purchase and price verification', async ({ page }) => {
   const storePage = new StorePage(page);
+  await storePage.assertCartItemCounterNotDisplayed();
   await storePage.addToCart(testData.availableItems.onsie);
+  await storePage.assertCartItemCounterIsDisplayed();
   await storePage.clickOnCartButton();
   await storePage.assertCartItemOnsieIsVisible();
   await storePage.clickOnCheckOutButton();

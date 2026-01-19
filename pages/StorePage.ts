@@ -100,10 +100,13 @@ export class StorePage {
     }
 
     async addToCart(itemName:string){
-      //await expect(this.filterOption).toBeVisible();
-      //await expect(this.inventoryContainer).toBeVisible();
       const item = this.page.getByText(itemName).locator("..").locator("..").locator("..");
       item.getByText("Add to cart").click();
+    }
+
+    async removeFromCart(itemName:string){
+      const item = this.page.getByText(itemName).locator("..").locator("..").locator("..");
+      item.getByText("Remove").click();
     }
 
     async assertCheckoutYourInfoError(error: string){
@@ -132,6 +135,10 @@ export class StorePage {
  
     async assertCartItemCounterNotDisplayed(){
     await expect(this.cartItemCounter).not.toBeVisible();
+    }
+
+    async assertCartItemCounterIsDisplayed(){
+    await expect(this.cartItemCounter).toBeVisible();
     }
 
     async assertHamMenuAllitemsIsDisplayed(){
@@ -207,6 +214,7 @@ export class StorePage {
      }
 
      async clickOnCartButton(){
+      await expect(this.cartBtn).toBeVisible();
       await this.cartBtn.click();
      }
 
