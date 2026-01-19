@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import * as testData from '../testData/testData.json';
 
 export class LoginPage {
   readonly page: Page;
@@ -8,7 +9,6 @@ export class LoginPage {
   readonly loginError: Locator;
   readonly productPage: Locator;
   readonly loginErrorClose: Locator;
-
 
   constructor(page: Page) {
     this.page = page;
@@ -20,7 +20,7 @@ export class LoginPage {
     this.loginErrorClose = page.locator("[data-test='error-button']");
    }
 
-   async goToLoginPage() {
+    async goToLoginPage() {
     await this.page.goto('https://www.saucedemo.com');
    }
 
@@ -57,6 +57,17 @@ export class LoginPage {
     }
 
     async assertLoginButtonPresent(){
-      await expect(this.loginBtn).toBeVisible
+    await expect(this.loginBtn).toBeVisible
+    }
+
+    async dismissLoginError(){
+    await this.loginErrorClose.click();
+    }
+
+    async loginToStore(){
+    await this.fillUsername(testData.validUser.username);
+    await this.fillPassword(testData.validUser.password);
+    await this.clickLogin();
+    await this.loginSuccessful();
     }
   }

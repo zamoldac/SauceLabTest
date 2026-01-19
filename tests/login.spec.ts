@@ -75,6 +75,6 @@ test('this test verifies login page error message dismiss', async ({ page }) => 
   await loginPage.clickLogin();
   await loginPage.assertLoginError(testData.missmatchPassword.expectedError);
   await loginPage.assertLoginErrorPresent();
-  await loginPage.loginErrorClose.click();
+  await loginPage.dismissLoginError();
   await loginPage.assertLoginErrorNotPresent();
 });

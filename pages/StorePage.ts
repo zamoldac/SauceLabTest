@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import * as testData from '../testData/testData.json';
 
 export class StorePage {
   readonly page: Page;
@@ -42,6 +43,8 @@ export class StorePage {
   readonly checkoutFinishBtn: Locator;
   readonly checkoutFinishMessage: Locator;
   readonly checkoutItemPrice: Locator;
+  readonly inventoryContainer: Locator;
+  readonly inventoryItemPrice: Locator;
 
 
   constructor(page: Page) {
@@ -86,12 +89,21 @@ export class StorePage {
     this.checkoutFinishBtn = page.locator("#finish")
     this.checkoutFinishMessage = page.locator("[data-test='complete-header']");
     this.checkoutItemPrice = page.locator("[data-test='inventory-item-price']")
+    this.inventoryContainer = page.locator("#inventory_container")
+    this.inventoryItemPrice = page.locator("[data-test=iinventory-item-price']")
 
 
   }
 
     async assertHamburgerMenuBtnNotPresent(){
     await expect(this.hamburgerMenuBtn).not.toBeVisible();  
+    }
+
+    async addToCart(itemName:string){
+      //await expect(this.filterOption).toBeVisible();
+      //await expect(this.inventoryContainer).toBeVisible();
+      const item = this.page.getByText(itemName).locator("..").locator("..").locator("..");
+      item.getByText("Add to cart").click();
     }
 
     async assertCheckoutYourInfoError(error: string){
@@ -161,5 +173,63 @@ export class StorePage {
      async assertCartItemBackPackisNotVisible(){
      await expect(this.cartItemBackPackName).not.toBeVisible();
     }
+
+     async clickOpenHamburgerMenu(){
+     await this.hamburgerMenuBtn.click();
+     }
+
+     async clickCloseHamburgerMenu(){
+     await this.closeHamburgerMenuBtn.click();
+     }
+      
+     async logoutFromStore(){
+     await this.logoutBtn.click();
+      }
+
+     async backToStoreFromItemDetails(){
+      await this.backToProductBtn.click();
+     }
+
+     async clickOnBackPackItem(){
+      await this.backPackTitleLink.click();
+     }
+
+     async clickOnBackPackImage(){
+      await this.backPackImageLink.click();
+     }
+
+     async addToCartFromItemDetailsPage(){
+      await this.addToCartFromItemPage.click();
+     }
+
+     async removeFromCartFromItemDetailsPage(){
+      await this.removeFromCartFromItemPage.click();
+     }
+
+     async clickOnCartButton(){
+      await this.cartBtn.click();
+     }
+
+     async clickOnCheckOutButton(){
+      await this.checkoutBtn.click();
+     }
+
+     async clickOnContinueShopFromCartPage(){
+      await this.cartContinueShopBtn.click();
+     }
+
+     async clickOnContinueCheckout(){
+      await this.checkoutContinueBtn.click();
+     }
+
+     async clickOnCheckOutFinishBtn(){
+      await this.checkoutFinishBtn.click();
+     }
+
+     async fillCheckOutUserInfo(){
+       await this.checkoutFirstNameField.fill(testData.checkoutPageInfo.firstName);
+       await this.checkoutLastNameField.fill(testData.checkoutPageInfo.lastName);
+       await this.checkoutZipPostalField.fill(testData.checkoutPageInfo.zipPostalCode);
+     }
 
   }
