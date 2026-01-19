@@ -210,10 +210,10 @@ export class StorePage {
       await this.checkoutFinishBtn.click();
      }
 
-     async fillCheckOutUserInfo(){
-       await this.checkoutFirstNameField.fill(testData.checkoutPageInfo.firstName);
-       await this.checkoutLastNameField.fill(testData.checkoutPageInfo.lastName);
-       await this.checkoutZipPostalField.fill(testData.checkoutPageInfo.zipPostalCode);
+     async fillCheckOutUserInfo(firstName: string, lastName: string, zipPostalCode:string){
+       await this.checkoutFirstNameField.fill(firstName);
+       await this.checkoutLastNameField.fill(lastName);
+       await this.checkoutZipPostalField.fill(zipPostalCode);
      }
 
   }

@@ -131,7 +131,7 @@ test('verify that the user is able to complete a checkout with a successful purc
   await storePage.assertCartItemOnsieIsVisible();
   await storePage.clickOnCheckOutButton();
   await storePage.assertCheckoutYourInfoPageLoaded(testData.checkoutPageInfo.yourInfoPageName);
-  await storePage.fillCheckOutUserInfo();
+  await storePage.fillCheckOutUserInfo(testData.checkoutPageInfo.firstName,testData.checkoutPageInfo.lastName,testData.checkoutPageInfo.zipPostalCode);
   await storePage.clickOnContinueCheckout();
   await storePage.assertItemDetailsName(testData.availableItems.onsie);
   await storePage.assertItemCheckoutPrice(testData.checkoutPageInfo.onsiePrice);
